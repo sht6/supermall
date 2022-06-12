@@ -1,11 +1,15 @@
 <template>
   <div class="buttom-bar">
     <div class="select-all">
-      <check-button class="check-button"></check-button>
+      <check-button
+        :isChecked="isSelectAll"
+        class="check-button"
+        @click.native="clickSelectAll"
+      ></check-button>
       <span>全选</span>
     </div>
     <div class="total-price">合计: ¥{{ totalPrice }}</div>
-    <div class="buy-product">去计算({{ cartCount }})</div>
+    <div class="buy-product" @click="calcClick">去计算({{ cartCount }})</div>
   </div>
 </template>
 
@@ -33,6 +37,36 @@ export default {
     },
     cartCount() {
       return this.cartList.filter((item) => item.checked).length;
+    },
+    isSelectAll() {
+      if (this.cartList.length == 0) return false;
+      // 使用filter
+      // return !this.cartList.filter((item) => !item.checked).length;
+      // 使用find
+      // return !this.cartList.find((item) => !item.checked);
+
+      // 普通遍历
+      for (let item of this.cartList) {
+        if (!item.checked) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  methods: {
+    clickSelectAll() {
+      if (this.isSelectAll) {
+        this.cartList.forEach((item) => (item.checked = false));
+      } else {
+        this.cartList.forEach((item) => (item.checked = true));
+      }
+    },
+    // 判断去计算时，购物车里面的数据有没有，然后弹出文字
+    calcClick() {
+      if (!this.isSelectAll) {
+        this.$toast.show("请去选择喜欢的商品添加到购物车", 1500);
+      }
     },
   },
 };

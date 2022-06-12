@@ -23,7 +23,7 @@
       ></detail-comment-info>
       <goods-list ref="recommend" :goodsList="recommends"></goods-list>
     </scroll>
-    <detail-bottom-bar @addToCart="addCart"></detail-bottom-bar>
+    <detail-bottom-bar @addToCart="addToCart"></detail-bottom-bar>
 
     <back-top @click.native="backTop" v-if="isShowBackTop"></back-top>
   </div>
@@ -51,6 +51,7 @@ import {
   getRecommend,
 } from "network/detail";
 import { debounce } from "../../common/utils";
+import { mapActions } from "vuex";
 
 export default {
   name: "Detail",
@@ -155,6 +156,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions(["addCart"]),
     imageLoad() {
       this.$refs.scroll.refresh();
       this.getThemeTopY();
@@ -208,7 +210,7 @@ export default {
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100);
     },
     // 将商品添加到购物车
-    addCart() {
+    addToCart() {
       // 创建一个对象，把购物车需要的数据存储起来
       const product = {};
       product.image = this.topImages[0];
@@ -217,9 +219,22 @@ export default {
       product.nowPrice = this.goods.nowPrice;
       product.iid = this.iid;
 
-      //将商品添加到购物车里，面
+      //将商品添加到购物车里，面(1.Promise  2.mapActions)
       // this.$store.commit("addCart", product);
-      this.$store.dispatch("addCart", product);
+      this.addCart(product).then((res) => {
+        console.log(this.$toast);
+        this.$toast.show(res, 2000);
+        // this.show = true;
+        // this.message = res;
+
+        // setTimeout(() => {
+        //   this.show = false;
+        // }, 1500);
+      });
+
+      // this.$store.dispatch("addCart", product).then((res) => {
+      //   console.log(res);
+      // });
     },
   },
 };
