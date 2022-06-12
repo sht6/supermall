@@ -31,7 +31,7 @@ export default {
   text-align: center;
   padding: 20px 7px 20px;
   font-size: 14px;
-  border-bottom: 15px solid #eee;
+  border-bottom: 10px solid #eee;
 }
 .recommend img {
   width: 70px;

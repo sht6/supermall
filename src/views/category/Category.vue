@@ -1,5 +1,5 @@
 <template>
-  <div><h2>分类</h2></div>
+  <div></div>
 </template>
 
 <script>

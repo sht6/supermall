@@ -28,7 +28,7 @@ export default {
   props: {
     interval: {
       type: Number,
-      default: 3000,
+      default: 2000,
     },
     animDuration: {
       type: Number,
@@ -59,7 +59,7 @@ export default {
 
       // 2.开启定时器
       this.startTimer();
-    }, 3000);
+    }, 1000);
   },
   methods: {
     /**
@@ -232,7 +232,6 @@ export default {
 #hy-swiper {
   overflow: hidden;
   position: relative;
-  height: 195px;
 }
 
 .swiper {
