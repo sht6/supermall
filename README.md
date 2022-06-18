@@ -22,3 +22,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 项目演示地址
+http://shenlao.usa3v.work
+
+
+这是一个基于vue全家桶的移动端商城项目
